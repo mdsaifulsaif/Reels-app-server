@@ -31,7 +31,7 @@ async function registerUser(req, res) {
     {
       id: user._id,
     },
-    "849ijfejfeihhsdijfsjdfjdgjrhghsdfijsd"
+    "8439650484f8e9f8d2b3e4617544545c"
   );
 
   res.cookie("token", token);
@@ -69,7 +69,7 @@ async function loginuser(req, res) {
     {
       id: user._id,
     },
-    "4534534jfhjsdjkfhjkshfsdfkjkh"
+    "8439650484f8e9f8d2b3e4617544545c"
   );
 
   res.cookie("token", token);
@@ -115,7 +115,7 @@ async function registerFoodPartner(req, res) {
     {
       id: foodPartner._id,
     },
-    "849ijfejfeihhsdijfsjdfjdgjrhghsdfijsd"
+    "8439650484f8e9f8d2b3e4617544545c"
   );
   res.cookie("token", token);
 
@@ -152,7 +152,7 @@ async function loginFoodPartner(req, res) {
     {
       id: foodPartenr._id,
     },
-    "4534534jfhjsdjkfhjkshfsdfkjkh"
+    "8439650484f8e9f8d2b3e4617544545c"
   );
 
   res.cookie("token", token);
