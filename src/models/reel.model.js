@@ -1,0 +1,24 @@
+const mongoose = require("mongoose");
+
+const reelSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  video: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+  },
+
+  createBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+});
+
+const reelsModel = mongoose.model("reel", reelSchema);
+
+module.exports = reelsModel;

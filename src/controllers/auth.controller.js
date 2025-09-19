@@ -80,6 +80,7 @@ async function loginuser(req, res) {
       _id: user._id,
       email: user.email,
       fullName: user.fullName,
+      role: user.role,
     },
   });
 }
@@ -92,7 +93,7 @@ async function logoutUser(req, res) {
 }
 
 async function registerFoodPartner(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, mobile, password } = req.body;
 
   const isAccountAlreadyExists = await foodPartnerModel.findOne({ email });
 
@@ -106,6 +107,7 @@ async function registerFoodPartner(req, res) {
 
   const foodPartner = await foodPartnerModle.create({
     name,
+    mobile,
     email,
     password: hashedPassword,
   });
@@ -123,6 +125,7 @@ async function registerFoodPartner(req, res) {
     message: "Food partner registered succecfully ",
     foodPartnerinfo: {
       _id: foodPartner._id,
+      mobile: foodPartner.mobile,
       email: foodPartner.email,
       name: foodPartner.name,
     },
@@ -174,6 +177,46 @@ function logoutFoodPrtner(req, res) {
   });
 }
 
+async function currentFoodPartner(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "8439650484f8e9f8d2b3e4617544545c");
+
+    const foodPartner = await foodPartnerModle
+      .findById(decoded.id)
+      .select("-password");
+    if (!foodPartner) {
+      return res.status(404).json({ message: "Food Partner not found" });
+    }
+    res.json({ foodPartner });
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+}
+
+async function currentUser(req, res) {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "8439650484f8e9f8d2b3e4617544545c");
+    const user = await userModel.findById(decoded.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ user });
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+}
+
 module.exports = {
   registerUser,
   loginuser,
@@ -181,4 +224,6 @@ module.exports = {
   registerFoodPartner,
   loginFoodPartner,
   logoutFoodPrtner,
+  currentUser,
+  currentFoodPartner,
 };
