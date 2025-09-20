@@ -17,4 +17,12 @@ router.post(
 
 router.get("/", authMiddleware.authUserMiddleWare, reelController.getReels);
 
+router.get("/user-all-reels/:id", reelController.userAllReels);
+
+router.post(
+  "/like",
+  authMiddleware.authUserMiddleWare,
+  reelController.cratelike
+);
+
 module.exports = router;

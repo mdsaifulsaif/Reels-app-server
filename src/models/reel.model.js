@@ -12,7 +12,10 @@ const reelSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-
+  likeCount: {
+    type: Number,
+    default: 0,
+  },
   createBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
