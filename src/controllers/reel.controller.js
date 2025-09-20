@@ -1,4 +1,5 @@
 const reelsModel = require("../models/reel.model");
+const userModel = require("../models/user.model");
 const likeModel = require("../models/like.model");
 const { v4: uuid } = require("uuid");
 const storage = require("../services/storage");
@@ -37,11 +38,13 @@ async function userAllReels(req, res) {
     const createById = req.params.id; // URL থেকে user id নিচ্ছি
     console.log("User ID:", createById);
 
+    const creator = await userModel.findById(createById);
     const userReels = await reelsModel.find({ createBy: createById });
 
     res.status(200).json({
       message: "User reels retrieved successfully",
       userReels,
+      creator,
     });
   } catch (error) {
     console.error("Error fetching user reels:", error);
@@ -90,43 +93,6 @@ async function cratelike(req, res) {
     like,
   });
 }
-
-// async function cratelike(req, res) {
-//   const { reelId } = req.body;
-//   const user = req.user;
-
-//   console.log(reelId);
-//   console.log(user);
-
-//   const isAlreadyLiked = await likeModel.findOne({
-//     user: user._id,
-//     reel: reelId,
-//   });
-
-//   await reelsModel.findByIdAndUpdate(reelId, {
-//     $inc: { likeCount: -1 },
-//   });
-
-//   if (isAlreadyLiked) {
-//     await likeModel.deleteOne({
-//       user: user._id,
-//       reel: reelId,
-//     });
-//   }
-
-//   const like = await likeModel.create({
-//     user: user._id,
-//     reel: reelId,
-//   });
-
-//   await reelsModel.findByIdAndUpdate(reelId, {
-//     $inc: { likeCount: 1 },
-//   });
-//   res.status(201).json({
-//     message: "food Like Successfully",
-//     like,
-//   });
-// }
 
 module.exports = {
   createReel,
