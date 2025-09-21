@@ -21,6 +21,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("helo world");
 });
+app.get("/ok", (req, res) => {
+  res.send("ok 2");
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/food/", foodRoutes);
