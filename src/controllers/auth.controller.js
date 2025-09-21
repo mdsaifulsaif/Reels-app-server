@@ -31,7 +31,7 @@ async function registerUser(req, res) {
     {
       id: user._id,
     },
-    "8439650484f8e9f8d2b3e4617544545c"
+    process.env.JTW_SECRET
   );
 
   res.cookie("token", token);
@@ -69,7 +69,7 @@ async function loginuser(req, res) {
     {
       id: user._id,
     },
-    "8439650484f8e9f8d2b3e4617544545c"
+    process.env.JTW_SECRET
   );
 
   res.cookie("token", token);
@@ -117,7 +117,7 @@ async function registerFoodPartner(req, res) {
     {
       id: foodPartner._id,
     },
-    "8439650484f8e9f8d2b3e4617544545c"
+    process.env.JTW_SECRET
   );
   res.cookie("token", token);
 
@@ -155,7 +155,7 @@ async function loginFoodPartner(req, res) {
     {
       id: foodPartenr._id,
     },
-    "8439650484f8e9f8d2b3e4617544545c"
+    process.env.JTW_SECRET
   );
 
   res.cookie("token", token);
@@ -185,7 +185,7 @@ async function currentFoodPartner(req, res) {
   }
 
   try {
-    const decoded = jwt.verify(token, "8439650484f8e9f8d2b3e4617544545c");
+    const decoded = jwt.verify(token, process.env.JTW_SECRET);
 
     const foodPartner = await foodPartnerModle
       .findById(decoded.id)
@@ -206,7 +206,7 @@ async function currentUser(req, res) {
   }
 
   try {
-    const decoded = jwt.verify(token, "8439650484f8e9f8d2b3e4617544545c");
+    const decoded = jwt.verify(token, process.env.JTW_SECRET);
     const user = await userModel.findById(decoded.id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });

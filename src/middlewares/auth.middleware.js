@@ -12,7 +12,7 @@ async function authFoodPartnerMiddleware(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, "8439650484f8e9f8d2b3e4617544545c");
+    const decoded = jwt.verify(token, process.env.JTW_SECRET);
 
     const foodPartenr = await foodPartnerModle.findById(decoded.id);
     req.foodPartenr = foodPartenr;
@@ -56,7 +56,7 @@ async function authUserMiddleWare(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, "8439650484f8e9f8d2b3e4617544545c");
+    const decoded = jwt.verify(token, process.env.JTW_SECRET);
 
     const user = await userModel.findById(decoded.id);
 

@@ -35,8 +35,7 @@ async function getReels(req, res) {
 
 async function userAllReels(req, res) {
   try {
-    const createById = req.params.id; // URL থেকে user id নিচ্ছি
-    console.log("User ID:", createById);
+    const createById = req.params.id;
 
     const creator = await userModel.findById(createById);
     const userReels = await reelsModel.find({ createBy: createById });
