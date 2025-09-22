@@ -12,7 +12,7 @@ async function authFoodPartnerMiddleware(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JTW_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const foodPartenr = await foodPartnerModle.findById(decoded.id);
     req.foodPartenr = foodPartenr;
@@ -26,7 +26,7 @@ async function authFoodPartnerMiddleware(req, res, next) {
 
 async function authUserMiddleWare(req, res, next) {
   const token = req.cookies.token;
-
+  console.log("medelwaretoken", token);
   if (!token) {
     return res.status(401).json({
       message: "Please login first",
@@ -34,7 +34,7 @@ async function authUserMiddleWare(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JTW_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await userModel.findById(decoded.id);
 

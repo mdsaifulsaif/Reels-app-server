@@ -31,10 +31,14 @@ async function registerUser(req, res) {
     {
       id: user._id,
     },
-    process.env.JTW_SECRET
+    process.env.JWT_SECRET
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true, // লোকালি false, Render/Production এ true
+    sameSite: "none", // cross-site request এ দরকার
+  });
 
   res.status(201).json({
     message: "user register successfull",
@@ -69,10 +73,14 @@ async function loginuser(req, res) {
     {
       id: user._id,
     },
-    process.env.JTW_SECRET
+    process.env.JWT_SECRET
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true, // লোকালি false, Render/Production এ true
+    sameSite: "none", // cross-site request এ দরকার
+  });
 
   res.status(200).json({
     message: "User logged in successfully",
@@ -117,7 +125,7 @@ async function registerFoodPartner(req, res) {
     {
       id: foodPartner._id,
     },
-    process.env.JTW_SECRET
+    process.env.JWT_SECRET
   );
   res.cookie("token", token);
 
@@ -155,7 +163,7 @@ async function loginFoodPartner(req, res) {
     {
       id: foodPartenr._id,
     },
-    process.env.JTW_SECRET
+    process.env.JWT_SECRET
   );
 
   res.cookie("token", token);
@@ -185,7 +193,7 @@ async function currentFoodPartner(req, res) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JTW_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const foodPartner = await foodPartnerModle
       .findById(decoded.id)
@@ -206,7 +214,7 @@ async function currentUser(req, res) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JTW_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await userModel.findById(decoded.id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
