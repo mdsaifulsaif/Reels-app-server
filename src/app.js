@@ -3,7 +3,7 @@ require("dotenv").config();
 var cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.routes");
-const foodRoutes = require("./routes/food.routes");
+// const foodRoutes = require("./routes/food.routes");
 const reelRoutes = require("./routes/reel.routes");
 
 const app = express();
@@ -21,14 +21,12 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("helo world");
 });
-app.get("/ok", (req, res) => {
-  res.send("ok 2");
+app.get("/test", (req, res) => {
+  res.send("Hello test");
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/food/", foodRoutes);
 app.use("/api/reel", reelRoutes);
-
 // app.use("/api/partner");
 
 module.exports = app;
