@@ -3,14 +3,13 @@ require("dotenv").config();
 var cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.routes");
-// const foodRoutes = require("./routes/food.routes");
 const reelRoutes = require("./routes/reel.routes");
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // তোমার React frontend url
+    origin: ["http://localhost:5173", "https://clipzygo.netlify.app/"],
     credentials: true,
   })
 );
