@@ -16,7 +16,6 @@ async function createReel(req, res) {
     video: result.url,
     createBy: req.user._id,
   });
-  //   console.log(result.url);
 
   res.status(200).json({
     message: "Reel created successfully",
