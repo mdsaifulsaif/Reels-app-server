@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.routes");
 const reelRoutes = require("./routes/reel.routes");
 const commentRoutes = require("./routes/comment.routes");
+const followRoutes = require("./routes/follow.routes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.get("/test", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/reel", reelRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/", followRoutes);
 // app.use("/api/partner");
 
 module.exports = app;
