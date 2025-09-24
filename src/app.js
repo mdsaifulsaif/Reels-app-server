@@ -6,12 +6,13 @@ const authRoutes = require("./routes/auth.routes");
 const reelRoutes = require("./routes/reel.routes");
 const commentRoutes = require("./routes/comment.routes");
 const followRoutes = require("./routes/follow.routes");
+const userRoutes = require("./routes/users.routes");
 
 const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://clipzygo.netlify.app"],
+    origin: ["http://localhost:5173"],
     credentials: true,
   })
 );
@@ -30,6 +31,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/reel", reelRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/", followRoutes);
+app.use("/api/", userRoutes);
 // app.use("/api/partner");
 
 module.exports = app;

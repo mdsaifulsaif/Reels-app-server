@@ -6,6 +6,9 @@ async function addfollwer(req, res) {
     const userId = req.body.userId; //user auth
     const targetId = req.params.targetId;
 
+    console.log("usrid ", userId);
+    console.log("targetId", targetId);
+
     if (userId === targetId) {
       return res.status(400).json({ error: "নিজেকে follow করা যায় না!" });
     }
