@@ -8,6 +8,8 @@ async function createReel(req, res) {
   //   console.log(req.body);
   //   console.log(req.file);
   //   console.log(req.user);
+
+  const userId = req.user.id;
   const result = await storage.uploadFile(req.file.buffer, uuid());
 
   const reelItem = await reelsModel.create({
@@ -69,26 +71,39 @@ async function cratelike(req, res) {
       reel: reelId,
     });
 
-    await reelsModel.findByIdAndUpdate(reelId, {
-      $inc: { likeCount: -1 },
-    });
+    const reel = await reelsModel.findByIdAndUpdate(
+      reelId,
+      {
+        $inc: { likeCount: -1 },
+        $set: { isLike: false }, // 👈 DB তে update হচ্ছে
+      },
+      { new: true }
+    );
 
-    return res.json({ message: "Unliked successfully" });
+    return res.json({
+      message: "Unliked successfully",
+      reel,
+    });
   }
 
   // like
-  const like = await likeModel.create({
+  await likeModel.create({
     user: user._id,
     reel: reelId,
   });
 
-  await reelsModel.findByIdAndUpdate(reelId, {
-    $inc: { likeCount: 1 },
-  });
+  const reel = await reelsModel.findByIdAndUpdate(
+    reelId,
+    {
+      $inc: { likeCount: 1 },
+      $set: { isLike: true }, // 👈 DB তে update হচ্ছে
+    },
+    { new: true }
+  );
 
   res.status(201).json({
     message: "Liked successfully",
-    like,
+    reel,
   });
 }
 

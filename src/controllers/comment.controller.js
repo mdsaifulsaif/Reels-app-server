@@ -20,7 +20,6 @@ async function createComment(req, res) {
 async function getComment(req, res) {
   try {
     const { reelId } = req.params;
-    console.log(reelId);
     let comments = await commentModel
       .find({ reel: reelId })
       .populate("user", "fullName email ")

@@ -1,20 +1,3 @@
-// const mongoose = require("mongoose");
-
-// function connectDB() {
-//   mongoose
-//     .connect(
-//       `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.tprylaa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-//     )
-//     .then(() => {
-//       console.log("Mongodb connected");
-//     })
-//     .catch((err) => {
-//       console.log("mongodb connectin error", err);
-//     });
-// }
-
-// module.exports = connectDB;
-
 const mongoose = require("mongoose");
 
 async function connectDB() {

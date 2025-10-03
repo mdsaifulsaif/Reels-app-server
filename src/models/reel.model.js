@@ -4,6 +4,7 @@ const reelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    maxlength: 20,
   },
   video: {
     type: String,
@@ -11,10 +12,15 @@ const reelSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    maxlength: 50,
   },
   likeCount: {
     type: Number,
     default: 0,
+  },
+  isLike: {
+    type: Boolean,
+    default: false,
   },
   createBy: {
     type: mongoose.Schema.Types.ObjectId,

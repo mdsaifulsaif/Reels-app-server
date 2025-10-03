@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       requierd: true,
     },
+
+    isFollow: {
+      type: String,
+      default: "false",
+    },
     email: {
       type: String,
       required: true,
