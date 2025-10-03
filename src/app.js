@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://clipzygo.netlify.app"],
     credentials: true,
   })
 );
@@ -32,6 +32,5 @@ app.use("/api/reel", reelRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/", followRoutes);
 app.use("/api/", userRoutes);
-// app.use("/api/partner");
 
 module.exports = app;

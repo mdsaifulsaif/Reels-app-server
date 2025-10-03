@@ -1,9 +1,7 @@
 const { JsonWebTokenError } = require("jsonwebtoken");
 const userModel = require("../models/user.model");
-const foodPartnerModel = require("../models/foodpartner.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const foodPartnerModle = require("../models/foodpartner.model");
 
 async function registerUser(req, res) {
   const { fullName, email, password } = req.body;
@@ -34,13 +32,11 @@ async function registerUser(req, res) {
     process.env.JWT_SECRET
   );
 
-  res.cookie("token", token);
-
-  // , {
-  //   httpOnly: true,
-  //   secure: false, // লোকালি false, Render/Production এ true
-  //   sameSite: "none", // cross-site request এ দরকার
-  // }
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
 
   res.status(201).json({
     message: "user register successfull",
@@ -78,13 +74,11 @@ async function loginuser(req, res) {
     process.env.JWT_SECRET
   );
 
-  res.cookie("token", token);
-
-  // , {
-  //   httpOnly: true,
-  //   secure: false, // লোকালি false, Render/Production এ true
-  //   sameSite: "none", // cross-site request এ দরকার
-  // }
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
 
   res.status(200).json({
     message: "User logged in successfully",
